@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { User } from "../models/User.model.js";
+import { User } from "../models/user.model.js";
 
 // registration
 
@@ -149,7 +149,7 @@ export const login = async (req, res, next) => {
 
 // Logout
 
-export const logout = async (req, res, next) => {
+export const logout = async (res, next) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,

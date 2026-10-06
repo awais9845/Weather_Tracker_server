@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 import connectDB from "./config/ConnectDb.js";
 import routes from "./routes/index.routes.js";
@@ -13,10 +14,12 @@ const allowedOrigins = ["http://localhost:5173", process.env.LIVE_URI];
 app.use(
   cors({
     origin: allowedOrigins,
+    credentials: true,
   }),
 );
 
 app.use(express.json());
+app.use(cookieParser());
 connectDB();
 
 app.use("/api", routes);

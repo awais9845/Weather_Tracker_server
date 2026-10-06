@@ -12,15 +12,15 @@ export const getWeather = async (req, res) => {
 
     // Create the location
     const location = country ? `${city},${country}` : city;
-    console.log("API KEY:", process.env.WEATHER_API_KEY);
+    // console.log("API KEY:", process.env.WEATHER_API_KEY);
 
     // Get weather from OpenWeatherMap
     const response = await axios.get(
-      "https://api.openweathermap.org/data/2.5/weather",
+      "https://api.openweathermap.org/data/2.5/forecast",
       {
         params: {
           q: location,
-          appid: "b58c2369ce92ce6378226ea88065a19e",
+          appid: process.env.WEATHER_API_KEY,
           units: "metric",
         },
       },
@@ -33,10 +33,13 @@ export const getWeather = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log("Status:", error.response?.status);
-    console.log("Data:", error.response?.data);
-    res.status(500).json({
-      message: error.message,
+    const status = error.response?.status || 500;
+    const message =
+      error.response?.data?.message ||
+      error.message ||
+      "Failed to fetch weather data";
+    res.status(status).json({
+      message,
       success: false,
     });
   }
