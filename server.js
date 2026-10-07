@@ -10,7 +10,7 @@ config();
 const app = express();
 
 const allowedOrigins = ["http://localhost:5173", process.env.LIVE_URI];
-
+console.log(allowedOrigins);
 app.use(
   cors({
     origin: allowedOrigins,
