@@ -9,28 +9,13 @@ config();
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  // "https://weather-tracker-client.vercel.app",
-  process.env.LIVE_URI,
-].filter(Boolean);
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      const cleanOrigin = origin.replace(/\/$/, "");
-      const isAllowed = allowedOrigins.some(
-        (allowed) => allowed.replace(/\/$/, "") === cleanOrigin
-      );
-      if (isAllowed) {
-        callback(null, true);
-      } else {
-        callback(null, false);
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: [
+      "http://localhost:5173",
+      "https://weather-tracker-client.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
