@@ -11,6 +11,12 @@ const app = express();
 
 const allowedOrigins = ["http://localhost:5173", process.env.LIVE_URI];
 
+app.use((req, res, next) => {
+  console.log("METHOD:", req.method);
+  console.log("ORIGIN:", req.headers.origin);
+  next();
+});
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -33,7 +39,9 @@ app.get("/", (req, res) => {
   res.send("Weather Dashboard API is running...");
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+
+export default app;
