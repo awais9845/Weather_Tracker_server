@@ -17,6 +17,7 @@ app.use(
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   }),
 );
 
@@ -30,4 +31,7 @@ app.get("/", (req, res) => {
   res.send("Weather Dashboard API is running...");
 });
 
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
 export default app;
