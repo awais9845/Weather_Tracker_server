@@ -2,10 +2,11 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { config } from "dotenv";
-import connectDB from "./config/ConnectDb.js";
 import routes from "./routes/index.routes.js";
+import connectDB from "./config/connectDb.js";
 
 config();
+connectDB();
 
 const app = express();
 console.log(process.env.LIVE_URI);
@@ -24,7 +25,6 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
-connectDB();
 
 app.use("/api", routes);
 
