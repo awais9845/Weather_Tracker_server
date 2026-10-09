@@ -8,12 +8,13 @@ import routes from "./routes/index.routes.js";
 config();
 
 const app = express();
-
+console.log(process.env.LIVE_URI);
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "https://weather-tracker-client.vercel.app",
+      // "http://localhost:5173",
+      // "https://weather-tracker-client.vercel.app",
+      process.env.LIVE_URI,
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -31,7 +32,7 @@ app.get("/", (req, res) => {
   res.send("Weather Dashboard API is running...");
 });
 
-// app.listen(process.env.PORT, () => {
-//   console.log(`Server is running on port ${process.env.PORT}`);
-// });
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
 export default app;
